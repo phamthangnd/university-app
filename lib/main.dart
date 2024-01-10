@@ -47,8 +47,7 @@ import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_logging/sentry_logging.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:schedule_repository/schedule_repository.dart'
-    as schedule_repository;
+import 'package:schedule_repository/schedule_repository.dart' as schedule_repository;
 
 class GlobalBlocObserver extends BlocObserver {
   @override
@@ -94,7 +93,7 @@ Future<void> main() async {
 
   setPathUrlStrategy();
 
-  Intl.defaultLocale = 'ru_RU';
+  Intl.defaultLocale = 'en_US';
 
   if (kIsWeb) {
     Intl.systemLocale = Intl.defaultLocale!;
@@ -162,22 +161,17 @@ class App extends StatelessWidget {
 
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider.value(value: schedule_repository.ScheduleRepository(apiClient: apiClient)),
+        RepositoryProvider.value(value: CommunityRepository(apiClient: apiClient)),
         RepositoryProvider.value(
-            value:
-                schedule_repository.ScheduleRepository(apiClient: apiClient)),
-        RepositoryProvider.value(
-            value: CommunityRepository(apiClient: apiClient)),
-        RepositoryProvider.value(
-          value: StoriesRepositoryImpl(
-              remoteDataSource: getIt<StrapiRemoteData>()),
+          value: StoriesRepositoryImpl(remoteDataSource: getIt<StrapiRemoteData>()),
         ),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<ScheduleBloc>(
             create: (context) => ScheduleBloc(
-              scheduleRepository:
-                  context.read<schedule_repository.ScheduleRepository>(),
+              scheduleRepository: context.read<schedule_repository.ScheduleRepository>(),
             )..add(const ScheduleResumed()),
           ),
           BlocProvider<StoriesBloc>(
@@ -188,13 +182,10 @@ class App extends StatelessWidget {
           BlocProvider<MapCubit>(create: (context) => getIt<MapCubit>()),
           BlocProvider<NewsBloc>(create: (context) => getIt<NewsBloc>()),
           BlocProvider<UserBloc>(create: (context) => getIt<UserBloc>()),
-          BlocProvider<AnnouncesBloc>(
-              create: (context) => getIt<AnnouncesBloc>()),
-          BlocProvider<EmployeeBloc>(
-              create: (context) => getIt<EmployeeBloc>()),
+          BlocProvider<AnnouncesBloc>(create: (context) => getIt<AnnouncesBloc>()),
+          BlocProvider<EmployeeBloc>(create: (context) => getIt<EmployeeBloc>()),
           BlocProvider<ScoresBloc>(create: (context) => getIt<ScoresBloc>()),
-          BlocProvider<AttendanceBloc>(
-              create: (context) => getIt<AttendanceBloc>()),
+          BlocProvider<AttendanceBloc>(create: (context) => getIt<AttendanceBloc>()),
           BlocProvider<AppCubit>(create: (context) => getIt<AppCubit>()),
           if (Platform.isAndroid)
             BlocProvider<NfcPassBloc>(
@@ -223,9 +214,9 @@ class App extends StatelessWidget {
                 Locale('en'),
                 Locale('ru'),
               ],
-              locale: const Locale('ru'),
+              locale: const Locale('en'),
               debugShowCheckedModeBanner: false,
-              title: 'Приложение РТУ МИРЭА',
+              title: 'RTU MIREA application',
               routerConfig: router,
               themeMode: AppTheme.themeMode,
               theme: AppTheme.theme,

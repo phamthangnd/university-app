@@ -16,7 +16,7 @@ class ServicesPage extends StatelessWidget {
         backgroundColor: AppTheme.colors.background01,
         elevation: 0,
         title: const Text(
-          "Сервисы",
+          "Services",
         ),
       ),
       body: const SafeArea(
@@ -44,7 +44,7 @@ class _ServicesViewState extends State<ServicesView> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              "Популярные",
+              "Popular",
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -60,7 +60,7 @@ class _ServicesViewState extends State<ServicesView> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 ServiceCard(
-                  title: 'Карта МИРЭА',
+                  title: 'MIREA map',
                   url: 'https://map.mirea.ru/',
                   icon: ServiceIcon(
                     color: AppTheme.colors.colorful07,
@@ -68,7 +68,7 @@ class _ServicesViewState extends State<ServicesView> {
                     icon: Icons.map,
                   ),
                   launchMode: LaunchMode.inAppBrowserView,
-                  description: 'Найди нужный кабинет',
+                  description: 'Find the right office',
                 ),
                 // ServiceCard(
                 //   title: 'Калькулятор БРС',
@@ -82,7 +82,7 @@ class _ServicesViewState extends State<ServicesView> {
                 //   ),
                 // ),
                 ServiceCard(
-                  title: 'Бюро находок',
+                  title: 'Lost and found',
                   url: 'https://finds.mirea.ru/',
                   icon: ServiceIcon(
                     color: AppTheme.colors.colorful06,
@@ -90,10 +90,10 @@ class _ServicesViewState extends State<ServicesView> {
                     icon: Icons.search,
                   ),
                   launchMode: LaunchMode.externalApplication,
-                  description: 'Найди свои вещи',
+                  description: 'Find your things',
                 ),
                 ServiceCard(
-                  title: 'Форум',
+                  title: 'Forum',
                   url: 'https://mirea.ninja/',
                   icon: ServiceIcon(
                     color: AppTheme.colors.colorful01,
@@ -158,8 +158,7 @@ class _ServicesViewState extends State<ServicesView> {
                     ).image,
                   ),
                   launchMode: LaunchMode.externalApplication,
-                  description:
-                      'Кафедра Инструментального и прикладного программного обеспечения',
+                  description: 'Кафедра Инструментального и прикладного программного обеспечения',
                 ),
               ],
             ),

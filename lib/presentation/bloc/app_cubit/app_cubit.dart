@@ -10,8 +10,7 @@ class AppCubit extends Cubit<AppState> {
   final GetAppSettings getAppSettings;
   final SetAppSettings setAppSettings;
 
-  AppCubit({required this.getAppSettings, required this.setAppSettings})
-      : super(AppInitial());
+  AppCubit({required this.getAppSettings, required this.setAppSettings}) : super(AppInitial());
 
   void checkOnboarding() async {
     final settings = await getAppSettings();
@@ -22,13 +21,13 @@ class AppCubit extends Cubit<AppState> {
       await setAppSettings(
         SetAppSettingsParams(
           AppSettings(
-            onboardingShown: true,
+            onboardingShown: false,
             lastUpdateVersion: settings.lastUpdateVersion,
             theme: settings.theme,
           ),
         ),
       );
-      emit(AppOnboarding());
+      closeOnboarding(); //emit(AppOnboarding());
     } else {
       closeOnboarding();
     }

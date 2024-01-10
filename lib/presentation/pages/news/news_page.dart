@@ -42,14 +42,10 @@ class NewsPage extends StatelessWidget {
       showDragHandle: true,
       builder: (context) => SafeArea(
         child: Container(
-          height: 420 < MediaQuery.of(context).size.height * 0.6
-              ? 420
-              : MediaQuery.of(context).size.height * 0.6,
-          padding:
-              const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
+          height: 420 < MediaQuery.of(context).size.height * 0.6 ? 420 : MediaQuery.of(context).size.height * 0.6,
+          padding: const EdgeInsets.only(top: 4, bottom: 16, left: 24, right: 24),
           child: BlocConsumer<NewsBloc, NewsState>(
-            listener: (context, state) =>
-                state.runtimeType != NewsLoaded ? context.pop() : null,
+            listener: (context, state) => state.runtimeType != NewsLoaded ? context.pop() : null,
             buildWhen: (previous, current) => (current is NewsLoaded),
             builder: (context, state) {
               final loadedState = state as NewsLoaded;
@@ -58,9 +54,8 @@ class NewsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TagBadge(
-                    tag: "все",
-                    onPressed: () =>
-                        _filterNewsByTag(context.read<NewsBloc>(), "все"),
+                    tag: "All",
+                    onPressed: () => _filterNewsByTag(context.read<NewsBloc>(), "all"),
                   ),
                   const SizedBox(height: 16),
                   Expanded(
@@ -72,20 +67,16 @@ class NewsPage extends StatelessWidget {
                         children: List.generate(
                           loadedState.tags.length,
                           (index) {
-                            if (loadedState.selectedTag ==
-                                loadedState.tags[index]) {
+                            if (loadedState.selectedTag == loadedState.tags[index]) {
                               return TagBadge(
                                 tag: loadedState.tags[index],
                                 color: AppTheme.colors.colorful04,
-                                onPressed: () => _filterNewsByTag(
-                                    context.read<NewsBloc>(), "все"),
+                                onPressed: () => _filterNewsByTag(context.read<NewsBloc>(), "all"),
                               );
                             }
                             return TagBadge(
                               tag: loadedState.tags[index],
-                              onPressed: () => _filterNewsByTag(
-                                  context.read<NewsBloc>(),
-                                  loadedState.tags[index]),
+                              onPressed: () => _filterNewsByTag(context.read<NewsBloc>(), loadedState.tags[index]),
                             );
                           },
                         ),
@@ -111,17 +102,15 @@ class NewsPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               PrimaryTabButton(
-                text: 'Новости',
+                text: 'news',
                 itemIndex: 0,
                 notifier: _tabValueNotifier,
                 onClick: () {
-                  context.read<NewsBloc>().add(NewsLoadEvent(
-                      refresh: true,
-                      isImportant: _tabValueNotifier.value == 1));
+                  context.read<NewsBloc>().add(NewsLoadEvent(refresh: true, isImportant: _tabValueNotifier.value == 1));
                 },
               ),
               PrimaryTabButton(
-                text: 'Важное',
+                text: 'Important',
                 itemIndex: 1,
                 notifier: _tabValueNotifier,
                 onClick: () {
@@ -129,7 +118,7 @@ class NewsPage extends StatelessWidget {
                         NewsLoadEvent(
                           refresh: true,
                           isImportant: _tabValueNotifier.value == 1,
-                          tag: "все",
+                          tag: "all",
                         ),
                       );
                 },
@@ -139,9 +128,7 @@ class NewsPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: AppSettingsButton(
-              onClick: () => (context.read<NewsBloc>().state is NewsLoaded)
-                  ? _showTagsModalWindow(context)
-                  : null,
+              onClick: () => (context.read<NewsBloc>().state is NewsLoaded) ? _showTagsModalWindow(context) : null,
             ),
           ),
         ],
@@ -154,7 +141,7 @@ class NewsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppTheme.colors.background01,
       appBar: AppBar(
-        title: const Text("Новости"),
+        title: const Text("News"),
       ),
       body: Builder(
         builder: (BuildContext context) {
@@ -169,9 +156,7 @@ class NewsPage extends StatelessWidget {
                 child: BlocBuilder<NewsBloc, NewsState>(
                   builder: (context, state) {
                     if (state is NewsInitial) {
-                      context.read<NewsBloc>().add(NewsLoadEvent(
-                          isImportant: _tabValueNotifier.value == 1,
-                          refresh: true));
+                      context.read<NewsBloc>().add(NewsLoadEvent(isImportant: _tabValueNotifier.value == 1, refresh: true));
                     } else if (state is NewsLoaded) {
                       news = state.news;
                     } else if (state is NewsLoading && state.isFirstFetch) {
@@ -182,8 +167,7 @@ class NewsPage extends StatelessWidget {
                             child: ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: 3,
-                              itemBuilder: (context, index) =>
-                                  const _ShimmerNewsCardLoading(),
+                              itemBuilder: (context, index) => const _ShimmerNewsCardLoading(),
                             ),
                           ),
                         ],
@@ -195,7 +179,7 @@ class NewsPage extends StatelessWidget {
                         physics: const AlwaysScrollableScrollPhysics(),
                         child: Center(
                           child: Text(
-                            'Произошла ошибка при загрузке новостей.',
+                            'An error occurred while loading news.',
                             textAlign: TextAlign.center,
                             style: AppTextStyle.title,
                           ),
@@ -250,8 +234,7 @@ class _NewsPageViewState extends State<_NewsPageView> {
   }
 
   void _scrollListener() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent - 200) {
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
       if (context.read<NewsBloc>().state is! NewsLoading) {
         context.read<NewsBloc>().add(NewsLoadEvent(
               isImportant: widget.tabValueNotifier.value == 1,

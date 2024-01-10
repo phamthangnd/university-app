@@ -21,7 +21,7 @@ class HolidayPage extends StatelessWidget {
           height: 8,
         ),
         Text(
-          "Пар в этот день нет!",
+          "There are no couples on this day!",
           style: AppTextStyle.bodyL,
         ),
       ],

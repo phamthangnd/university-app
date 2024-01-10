@@ -53,7 +53,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
     _textController.addListener(() {
       if (_textController.text.length > 500 && _textErrorText == null) {
         setState(() {
-          _textErrorText = 'Слишком длинный комментарий';
+          _textErrorText = 'Comment too long';
         });
       } else if (_textController.text.length <= 500 && _textErrorText != null) {
         setState(() {
@@ -80,9 +80,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
     final bloc = context.read<ScheduleBloc>();
 
     return bloc.state.comments.firstWhereOrNull(
-      (comment) =>
-          widget.lesson.dates.contains(comment.lessonDate) &&
-          comment.lessonBells == widget.lesson.lessonBells,
+      (comment) => widget.lesson.dates.contains(comment.lessonDate) && comment.lessonBells == widget.lesson.lessonBells,
     );
   }
 
@@ -100,7 +98,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
       backgroundColor: AppTheme.colors.background01,
       appBar: AppBar(
         title: const Text(
-          'Предмет',
+          'Subject',
         ),
       ),
       body: SingleChildScrollView(
@@ -139,11 +137,11 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
 
     content.addAll([
       ListTile(
-        title: Text('Комментарий'.toUpperCase()),
+        title: Text('A comment'.toUpperCase()),
         subtitle: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: TextInput(
-            hintText: 'Введите комментарий',
+            hintText: 'Enter a comment',
             controller: _textController,
             errorText: _textErrorText,
             maxLines: 5,
@@ -160,7 +158,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
   ListTile _buildLessonTitle() {
     return ListTile(
       title: Text(
-        'Название предмета'.toUpperCase(),
+        'Title of the subject'.toUpperCase(),
       ),
       subtitle: Text(widget.lesson.subject),
     );
@@ -168,7 +166,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
 
   ListTile _buildLessonType() {
     return ListTile(
-      title: Text('Тип занятия'.toUpperCase()),
+      title: Text('Type of activity'.toUpperCase()),
       subtitle: Row(
         children: [
           Container(
@@ -195,7 +193,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            title: Text('Аудитория'.toUpperCase()),
+            title: Text('Audience'.toUpperCase()),
             subtitle: Text(classroom.name),
             trailing: const Icon(
               Icons.chevron_right_sharp,
@@ -204,10 +202,9 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
             onTap: () => context.go('/schedule/search', extra: classroom.name),
           ),
           const Divider(),
-          if (classroom.campus != null &&
-              classroom.campus?.latitude != null) ...[
+          if (classroom.campus != null && classroom.campus?.latitude != null) ...[
             ListTile(
-              title: Text('Кампус'.toUpperCase()),
+              title: Text('Campus'.toUpperCase()),
               subtitle: Text(classroom.campus!.name),
             ),
             _buildClassroomMap(classroom),
@@ -261,7 +258,7 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
 
   ListTile _buildGroups() {
     return ListTile(
-      title: Text('Группы'.toUpperCase()),
+      title: Text('Groups'.toUpperCase()),
       subtitle: Wrap(
         spacing: 8,
         runSpacing: 4,
@@ -280,10 +277,9 @@ class _ScheduleDetailsPageState extends State<ScheduleDetailsPage> {
     return ListTile(
       title: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal:
-              Theme.of(context).listTileTheme.contentPadding!.horizontal / 2,
+          horizontal: Theme.of(context).listTileTheme.contentPadding!.horizontal / 2,
         ),
-        child: Text('Преподаватели'.toUpperCase()),
+        child: Text('Teachers'.toUpperCase()),
       ),
       contentPadding: EdgeInsets.zero,
       subtitle: Column(

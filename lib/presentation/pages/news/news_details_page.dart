@@ -157,12 +157,12 @@ class _NewsItemInfo extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Дата",
+                    "Date",
                     style: AppTextStyle.body
                         .copyWith(color: AppTheme.colors.deactive),
                   ),
                   Text(
-                    DateFormat.MMMd('ru_RU').format(date).toString(),
+                    DateFormat.MMMd('en_US').format(date).toString(),
                     style: AppTextStyle.titleM
                         .copyWith(color: AppTheme.colors.colorful02),
                   ),

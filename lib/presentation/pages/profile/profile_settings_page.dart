@@ -13,7 +13,7 @@ class ProfileSettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Настройки"),
+        title: const Text("Settings"),
       ),
       body: SafeArea(
         bottom: false,
@@ -21,43 +21,33 @@ class ProfileSettingsPage extends StatelessWidget {
           children: [
             const SizedBox(height: 24),
             ListTile(
-              title: Text("Тема", style: AppTextStyle.body),
-              leading:
-                  Icon(FontAwesomeIcons.palette, color: AppTheme.colors.active),
+              title: Text("Topic", style: AppTextStyle.body),
+              leading: Icon(FontAwesomeIcons.palette, color: AppTheme.colors.active),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
                 showDialog(
                   context: context,
                   builder: (context) => SimpleDialog(
-                    title: Text("Выбор темы", style: AppTextStyle.titleS),
+                    title: Text("Choosing a theme", style: AppTextStyle.titleS),
                     contentPadding: const EdgeInsets.all(16),
                     backgroundColor: AppTheme.colors.background02,
                     elevation: 0,
                     children: [
                       _ListTileThemeItem(
-                        title: "Светлая",
-                        trailing: AppTheme.defaultThemeType ==
-                                AppThemeType.light
-                            ? Icon(Icons.check, color: AppTheme.colors.active)
-                            : null,
+                        title: "Light",
+                        trailing: AppTheme.defaultThemeType == AppThemeType.light ? Icon(Icons.check, color: AppTheme.colors.active) : null,
                         onTap: () {
-                          context
-                              .read<AppNotifier>()
-                              .updateTheme(AppThemeType.light);
+                          context.read<AppNotifier>().updateTheme(AppThemeType.light);
 
                           context.pop();
                         },
                       ),
                       const SizedBox(height: 8),
                       _ListTileThemeItem(
-                        title: "Тёмная",
-                        trailing: AppTheme.defaultThemeType == AppThemeType.dark
-                            ? Icon(Icons.check, color: AppTheme.colors.active)
-                            : null,
+                        title: "dark",
+                        trailing: AppTheme.defaultThemeType == AppThemeType.dark ? Icon(Icons.check, color: AppTheme.colors.active) : null,
                         onTap: () {
-                          context
-                              .read<AppNotifier>()
-                              .updateTheme(AppThemeType.dark);
+                          context.read<AppNotifier>().updateTheme(AppThemeType.dark);
 
                           context.pop();
                         },
@@ -69,7 +59,7 @@ class ProfileSettingsPage extends StatelessWidget {
             ),
             const Divider(),
             ListTile(
-              title: Text("Уведомления", style: AppTextStyle.body),
+              title: Text("notifications", style: AppTextStyle.body),
               leading: Icon(Icons.notifications, color: AppTheme.colors.active),
               onTap: () {
                 context.go("/profile/settings/notifications");

@@ -40,20 +40,20 @@ class _SchedulePageState extends State<SchedulePage> {
     final schedule = context.read<ScheduleBloc>().state.selectedSchedule;
 
     if (schedule is SelectedGroupSchedule) {
-      return 'Расписание ${schedule.group.name}';
+      return 'Schedule ${schedule.group.name}';
     } else if (schedule is SelectedTeacherSchedule) {
       var splittedName = schedule.teacher.name.split(' ');
       if (splittedName.length == 3) {
-        return 'Расписание ${splittedName[0]} ${splittedName[1][0]}. ${splittedName[2][0]}.';
+        return 'Schedule ${splittedName[0]} ${splittedName[1][0]}. ${splittedName[2][0]}.';
       } else if (splittedName.length == 2) {
-        return 'Расписание ${splittedName[0]} ${splittedName[1][0]}.';
+        return 'Schedule ${splittedName[0]} ${splittedName[1][0]}.';
       } else {
-        return 'Расписание ${schedule.teacher.name}';
+        return 'Schedule ${schedule.teacher.name}';
       }
     } else if (schedule is SelectedClassroomSchedule) {
-      return 'Расписание ${schedule.classroom.name}';
+      return 'Schedule ${schedule.classroom.name}';
     } else {
-      return 'Расписание';
+      return 'Schedule';
     }
   }
 
@@ -61,8 +61,7 @@ class _SchedulePageState extends State<SchedulePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<ScheduleBloc, ScheduleState>(
       builder: (context, state) {
-        if (state.selectedSchedule == null &&
-            state.status != ScheduleStatus.loading) {
+        if (state.selectedSchedule == null && state.status != ScheduleStatus.loading) {
           return NoSelectedScheduleMessage(onTap: () {
             context.go('/schedule/search');
           });
@@ -97,9 +96,8 @@ class _SchedulePageState extends State<SchedulePage> {
                           BottomModalSheet.show(
                             context,
                             child: const SettingsMenu(),
-                            title: 'Управление расписанием',
-                            description:
-                                'Редактирование сохраненных расписаний и добавление новых, а также настройки отображения расписания.',
+                            title: 'Schedule management',
+                            description: 'Editing saved schedules and adding new ones, as well as schedule display settings.',
                             backgroundColor: AppTheme.colors.background03,
                           );
                         },
@@ -121,8 +119,7 @@ class _SchedulePageState extends State<SchedulePage> {
               body: EventsPageView(
                 controller: _schedulePageController,
                 itemBuilder: (context, index) {
-                  final day =
-                      Calendar.firstCalendarDay.add(Duration(days: index));
+                  final day = Calendar.firstCalendarDay.add(Duration(days: index));
                   final schedules = Calendar.getSchedulePartsByDay(
                     schedule: state.selectedSchedule?.schedule ?? [],
                     day: day,
@@ -133,16 +130,14 @@ class _SchedulePageState extends State<SchedulePage> {
                   );
 
                   if (holiday != null) {
-                    return HolidayPage(
-                        title: (holiday as HolidaySchedulePart).title);
+                    return HolidayPage(title: (holiday as HolidaySchedulePart).title);
                   }
 
                   if (day.weekday == DateTime.sunday) {
-                    return const HolidayPage(title: 'Выходной');
+                    return const HolidayPage(title: 'Day off');
                   }
 
-                  final lessons =
-                      schedules.whereType<LessonSchedulePart>().toList();
+                  final lessons = schedules.whereType<LessonSchedulePart>().toList();
 
                   if (state.showEmptyLessons) {
                     return ListView.builder(

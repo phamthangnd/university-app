@@ -7,7 +7,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies: 
-  http: ^1.1.2
+  http: 1.1.0
   icalendar_parser: ^2.0.0
   rrule: ^0.2.14
   equatable: ^2.0.3

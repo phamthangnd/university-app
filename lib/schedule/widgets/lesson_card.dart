@@ -49,43 +49,35 @@ class LessonCard extends StatelessWidget {
   static String getLessonTypeName(LessonType lessonType) {
     switch (lessonType) {
       case LessonType.lecture:
-        return 'Лекция';
+        return 'lecture';
       case LessonType.laboratoryWork:
-        return 'Лабораторная';
+        return 'laboratoryWork';
       case LessonType.practice:
-        return 'Практика';
+        return 'practice';
       case LessonType.individualWork:
-        return 'Сам. работа';
+        return 'individualWork';
       case LessonType.exam:
-        return 'Экзамен';
+        return 'exam';
       case LessonType.consultation:
-        return 'Консультация';
+        return 'consultation';
       case LessonType.courseWork:
-        return 'Курс. раб.';
+        return 'courseWork';
       case LessonType.courseProject:
-        return 'Курс. проект';
+        return 'courseProject';
       case LessonType.credit:
-        return 'Зачет';
+        return 'credit';
       default:
-        return 'Неизвестно';
+        return 'Unknown';
     }
   }
 
   String _getClassroomNames(List<Classroom> classrooms) {
-    return classrooms
-        .map((e) =>
-            e.name +
-            (e.campus != null
-                ? ' (${e.campus?.shortName ?? e.campus?.name ?? ''})'
-                : ''))
-        .join(', ');
+    return classrooms.map((e) => e.name + (e.campus != null ? ' (${e.campus?.shortName ?? e.campus?.name ?? ''})' : '')).join(', ');
   }
 
   Widget _buildCommentAlert(List<ScheduleComment> comments) {
     final comment = comments.firstWhereOrNull(
-      (comment) =>
-          lesson.dates.contains(comment.lessonDate) &&
-          comment.lessonBells == lesson.lessonBells,
+      (comment) => lesson.dates.contains(comment.lessonDate) && comment.lessonBells == lesson.lessonBells,
     );
 
     if (comment == null) {
@@ -127,9 +119,7 @@ class LessonCard extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.all(0),
-      color: AppTheme.themeMode == ThemeMode.dark
-          ? AppTheme.colors.background03
-          : AppTheme.colors.background02,
+      color: AppTheme.themeMode == ThemeMode.dark ? AppTheme.colors.background03 : AppTheme.colors.background02,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
       ),
@@ -198,9 +188,8 @@ class LessonCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            '${lesson.lessonBells.number} пара',
-                            style: AppTextStyle.body
-                                .copyWith(color: AppTheme.colors.colorful03),
+                            '${lesson.lessonBells.number} pair',
+                            style: AppTextStyle.body.copyWith(color: AppTheme.colors.colorful03),
                           ),
                           Text(
                             'в ${lesson.lessonBells.startTime} - ${lesson.lessonBells.endTime}',
@@ -239,8 +228,7 @@ class LessonCard extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     _getClassroomNames(lesson.classrooms),
-                                    style: AppTextStyle.body.copyWith(
-                                        color: AppTheme.colors.active),
+                                    style: AppTextStyle.body.copyWith(color: AppTheme.colors.active),
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -248,8 +236,7 @@ class LessonCard extends StatelessWidget {
                               ],
                             ),
                           ],
-                          if (lesson.groups != null &&
-                              lesson.groups!.length > 1) ...[
+                          if (lesson.groups != null && lesson.groups!.length > 1) ...[
                             const SizedBox(
                               height: 4,
                             ),
@@ -270,8 +257,7 @@ class LessonCard extends StatelessWidget {
                                 Expanded(
                                   child: Text(
                                     lesson.groups?.join(', ') ?? '',
-                                    style: AppTextStyle.body.copyWith(
-                                        color: AppTheme.colors.deactive),
+                                    style: AppTextStyle.body.copyWith(color: AppTheme.colors.deactive),
                                   ),
                                 ),
                               ],
@@ -285,8 +271,7 @@ class LessonCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 2, right: 7, top: 3),
+                                  padding: const EdgeInsets.only(left: 2, right: 7, top: 3),
                                   child: FaIcon(
                                     FontAwesomeIcons.userTie,
                                     size: 12,
@@ -295,11 +280,8 @@ class LessonCard extends StatelessWidget {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    lesson.teachers
-                                        .map((e) => e.name)
-                                        .join(', '),
-                                    style: AppTextStyle.body.copyWith(
-                                        color: AppTheme.colors.deactive),
+                                    lesson.teachers.map((e) => e.name).join(', '),
+                                    style: AppTextStyle.body.copyWith(color: AppTheme.colors.deactive),
                                   ),
                                 ),
                               ],

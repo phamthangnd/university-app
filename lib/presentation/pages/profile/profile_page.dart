@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Профиль"),
+        title: const Text("Profile"),
       ),
       backgroundColor: AppTheme.colors.background01,
       body: SafeArea(
@@ -38,8 +38,7 @@ class ProfilePage extends StatelessWidget {
                   listener: (context, state) {
                     state.maybeMap(
                       unauthorized: (st) {
-                        BlocProvider.of<UserBloc>(context)
-                            .add(const UserEvent.logIn());
+                        BlocProvider.of<UserBloc>(context).add(const UserEvent.logIn());
                       },
                       orElse: () {},
                     );
@@ -57,11 +56,8 @@ class ProfilePage extends StatelessWidget {
                       ),
                       logInError: (st) => const _InitialProfileStatePage(),
                       logInSuccess: (st) {
-                        BlocProvider.of<NotificationPreferencesBloc>(context)
-                            .add(
-                          InitialCategoriesPreferencesRequested(
-                              group: UserBloc.getActiveStudent(st.user)
-                                  .academicGroup),
+                        BlocProvider.of<NotificationPreferencesBloc>(context).add(
+                          InitialCategoriesPreferencesRequested(group: UserBloc.getActiveStudent(st.user).academicGroup),
                         );
                         return _UserLoggedInView(user: st.user);
                       },
@@ -89,8 +85,7 @@ class _UserLoggedInView extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 68,
-          backgroundImage:
-              Image.network('https://lk.mirea.ru${user.photoUrl}').image,
+          backgroundImage: Image.network('https://lk.mirea.ru${user.photoUrl}').image,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 13, bottom: 4),
@@ -101,14 +96,13 @@ class _UserLoggedInView extends StatelessWidget {
         ),
         Text(
           user.login,
-          style:
-              AppTextStyle.titleS.copyWith(color: AppTheme.colors.colorful04),
+          style: AppTextStyle.titleS.copyWith(color: AppTheme.colors.colorful04),
         ),
         const SizedBox(height: 12),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           TextOutlinedButton(
             width: 160,
-            content: "Профиль",
+            content: "Profile",
             onPressed: () => context.go('/profile/details', extra: user),
           ),
           const SizedBox(width: 12),
@@ -118,19 +112,18 @@ class _UserLoggedInView extends StatelessWidget {
             child: SocialIconButton.asset(
               assetPath: 'assets/icons/gerb.ico',
               onClick: () {
-                launchUrlString("https://lk.mirea.ru/auth",
-                    mode: LaunchMode.externalApplication);
+                launchUrlString("https://lk.mirea.ru/auth", mode: LaunchMode.externalApplication);
               },
-              text: "Вход в ЛКС",
+              text: "Entrance to LKS",
             ),
           ),
         ]),
 
         const SizedBox(height: 40),
-        const ContainerLabel(label: "Информация"),
+        const ContainerLabel(label: "Information"),
         const SizedBox(height: 20),
         SettingsButton(
-            text: 'Объявления',
+            text: 'announces',
             icon: Icons.message_rounded,
             onClick: () {
               context.read<AnnouncesBloc>().add(const LoadAnnounces());
@@ -143,24 +136,21 @@ class _UserLoggedInView extends StatelessWidget {
         //     onClick: () {}),
         const SizedBox(height: 8),
         SettingsButton(
-          text: 'Преподаватели',
+          text: 'Teachers',
           icon: Icons.people_alt_rounded,
           onClick: () => context.go('/profile/lectors'),
         ),
         const SizedBox(height: 8),
         SettingsButton(
-          text: 'Посещения',
+          text: 'attendance',
           icon: Icons.access_time_rounded,
           onClick: () => context.go('/profile/attendance'),
         ),
         const SizedBox(height: 8),
-        SettingsButton(
-            text: 'Зачетная книжка',
-            icon: Icons.menu_book_rounded,
-            onClick: () => context.go('/profile/scores')),
+        SettingsButton(text: 'scores', icon: Icons.menu_book_rounded, onClick: () => context.go('/profile/scores')),
         const SizedBox(height: 8),
         SettingsButton(
-          text: 'О приложении',
+          text: 'About',
           icon: Icons.apps_rounded,
           onClick: () => context.go('/profile/about'),
         ),
@@ -170,23 +160,16 @@ class _UserLoggedInView extends StatelessWidget {
         if (Platform.isAndroid) ...[
           const SizedBox(height: 8),
           SettingsButton(
-            text: 'NFC пропуск',
+            text: 'NFC pass',
             icon: Icons.nfc_rounded,
             onClick: () => context.go('/profile/nfc-pass'),
           ),
         ],
 
         const SizedBox(height: 8),
-        SettingsButton(
-            text: 'Настройки',
-            icon: Icons.settings_rounded,
-            onClick: () => context.go('/profile/settings')),
+        SettingsButton(text: 'Settings', icon: Icons.settings_rounded, onClick: () => context.go('/profile/settings')),
         const SizedBox(height: 8),
-        ColorfulButton(
-            text: 'Выйти',
-            onClick: () =>
-                context.read<UserBloc>().add(const UserEvent.logOut()),
-            backgroundColor: AppTheme.colors.colorful07),
+        ColorfulButton(text: 'logOut', onClick: () => context.read<UserBloc>().add(const UserEvent.logOut()), backgroundColor: AppTheme.colors.colorful07),
       ],
     );
   }
@@ -200,7 +183,7 @@ class _InitialProfileStatePage extends StatelessWidget {
     return Column(
       children: [
         ColorfulButton(
-            text: 'Войти',
+            text: 'logIn',
             onClick: () {
               // Мы используем oauth2 для авторизации, поэтому
               // вместо того, чтобы открывать страницу с логином и паролем,
@@ -222,13 +205,13 @@ class _InitialProfileStatePage extends StatelessWidget {
             backgroundColor: AppTheme.colors.colorful03),
         const SizedBox(height: 8),
         SettingsButton(
-          text: 'О приложении',
+          text: 'about',
           icon: Icons.apps_rounded,
           onClick: () => context.go('/profile/about'),
         ),
         const SizedBox(height: 8),
         SettingsButton(
-          text: 'Настройки',
+          text: 'settings',
           icon: Icons.settings_rounded,
           onClick: () => context.go('/profile/settings'),
         ),

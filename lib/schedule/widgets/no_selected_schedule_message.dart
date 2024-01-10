@@ -5,8 +5,7 @@ import 'package:rtu_mirea_app/presentation/typography.dart';
 import 'package:rtu_mirea_app/presentation/widgets/buttons/colorful_button.dart';
 
 class NoSelectedScheduleMessage extends StatelessWidget {
-  const NoSelectedScheduleMessage({Key? key, required this.onTap})
-      : super(key: key);
+  const NoSelectedScheduleMessage({Key? key, required this.onTap}) : super(key: key);
 
   final VoidCallback onTap;
 
@@ -19,8 +18,7 @@ class NoSelectedScheduleMessage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment:
-              isTable ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          crossAxisAlignment: isTable ? CrossAxisAlignment.center : CrossAxisAlignment.start,
           children: [
             Center(
               child: Image.asset(
@@ -32,14 +30,14 @@ class NoSelectedScheduleMessage extends StatelessWidget {
               height: 8,
             ),
             Text(
-              "Не установлена активная группа",
+              "Active group not set",
               style: AppTextStyle.h5,
             ),
             const SizedBox(
               height: 8,
             ),
             Text(
-              "Скачайте расписание по крайней мере для одной группы, чтобы отобразить календарь.",
+              "Download the schedule for at least one group to display the calendar.",
               style: AppTextStyle.captionL.copyWith(
                 color: AppTheme.colors.deactive,
               ),
@@ -50,7 +48,7 @@ class NoSelectedScheduleMessage extends StatelessWidget {
             SizedBox(
               width: isTable ? 420 : double.infinity,
               child: ColorfulButton(
-                text: "Настроить",
+                text: "Điều chỉnh",
                 onClick: onTap,
                 backgroundColor: AppTheme.colors.primary,
               ),

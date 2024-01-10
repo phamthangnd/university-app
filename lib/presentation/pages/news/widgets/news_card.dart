@@ -14,8 +14,7 @@ class NewsCard extends StatelessWidget {
   final NewsItem newsItem;
   final Function(String)? onClickNewsTag;
 
-  const NewsCard({Key? key, required this.newsItem, this.onClickNewsTag})
-      : super(key: key);
+  const NewsCard({Key? key, required this.newsItem, this.onClickNewsTag}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +55,7 @@ class NewsCard extends StatelessWidget {
                         ),
                         child: Shimmer.fromColors(
                           baseColor: AppTheme.colors.background03,
-                          highlightColor:
-                              AppTheme.colors.background03.withOpacity(0.5),
+                          highlightColor: AppTheme.colors.background03.withOpacity(0.5),
                           child: Container(
                             height: double.infinity,
                             width: double.infinity,
@@ -89,7 +87,7 @@ class NewsCard extends StatelessWidget {
                               left: 0.0,
                               right: 0.0,
                               child: Text(
-                                "Ошибка при загрузке изображения. Нажмите, чтобы перезагрузить",
+                                "Error loading image. Click to reload",
                                 textAlign: TextAlign.center,
                               ),
                             )
@@ -104,17 +102,12 @@ class NewsCard extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: Text(newsItem.title,
-                    textAlign: TextAlign.start, style: AppTextStyle.titleM),
+                child: Text(newsItem.title, textAlign: TextAlign.start, style: AppTextStyle.titleM),
               ),
               const SizedBox(height: 4),
-              Text((DateFormat.yMMMd('ru_RU').format(newsItem.date).toString()),
-                  textAlign: TextAlign.start,
-                  style: AppTextStyle.captionL
-                      .copyWith(color: AppTheme.colors.secondary)),
-              NewsBloc.isTagsNotEmpty(newsItem.tags)
-                  ? const SizedBox(height: 16)
-                  : Container(),
+              Text((DateFormat.yMMMd('en_US').format(newsItem.date).toString()),
+                  textAlign: TextAlign.start, style: AppTextStyle.captionL.copyWith(color: AppTheme.colors.secondary)),
+              NewsBloc.isTagsNotEmpty(newsItem.tags) ? const SizedBox(height: 16) : Container(),
               NewsBloc.isTagsNotEmpty(newsItem.tags)
                   ? _Tags(
                       tags: newsItem.tags,

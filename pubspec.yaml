@@ -182,7 +182,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   after_layout: ^1.1.0
   get:
-  get_storage:
+  #get_storage:
 
   home_widget: ^0.4.1
   

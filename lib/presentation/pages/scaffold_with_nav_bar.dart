@@ -11,8 +11,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../constants.dart';
 
 class ScaffoldWithNavBar extends StatelessWidget {
-  const ScaffoldWithNavBar({Key? key, required this.navigationShell})
-      : super(key: key);
+  const ScaffoldWithNavBar({Key? key, required this.navigationShell}) : super(key: key);
 
   final StatefulNavigationShell navigationShell;
 
@@ -24,7 +23,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth > tabletBreakpoint) {
           return Scaffold(
-            appBar: AppBar(title: const Text('РТУ МИРЭА')),
+            appBar: AppBar(title: const Text('RTU MIREA')),
             body: Row(
               children: [
                 _buildSidebar(context),
@@ -42,13 +41,12 @@ class ScaffoldWithNavBar extends StatelessWidget {
             body: Consumer<AppNotifier>(
               builder: (_, value, child) => navigationShell,
             ),
-            bottomNavigationBar:
-                navigationShell.route.toString().contains('home')
-                    ? null
-                    : AppBottomNavigationBar(
-                        index: navigationShell.currentIndex,
-                        onClick: (index) => _setActiveIndex(index),
-                      ),
+            bottomNavigationBar: navigationShell.route.toString().contains('home')
+                ? null
+                : AppBottomNavigationBar(
+                    index: navigationShell.currentIndex,
+                    onClick: (index) => _setActiveIndex(index),
+                  ),
           );
         }
       },
@@ -70,21 +68,21 @@ class ScaffoldWithNavBar extends StatelessWidget {
         children: [
           ListTile(
             leading: const Icon(Icons.library_books_rounded),
-            title: Text("Новости", style: AppTextStyle.tab),
+            title: Text("news", style: AppTextStyle.tab),
             selected: navigationShell.currentIndex == 0,
             onTap: () => _setActiveIndex(0),
             selectedColor: AppTheme.colors.primary,
           ),
           ListTile(
             leading: const Icon(Icons.calendar_today_rounded),
-            title: Text("Расписание", style: AppTextStyle.tab),
+            title: Text("Schedule", style: AppTextStyle.tab),
             selected: navigationShell.currentIndex == 1,
             onTap: () => _setActiveIndex(1),
             selectedColor: AppTheme.colors.primary,
           ),
           ListTile(
             leading: const Icon(Icons.widgets_rounded),
-            title: Text("Сервисы", style: AppTextStyle.tab),
+            title: Text("Services", style: AppTextStyle.tab),
             selected: navigationShell.currentIndex == 2,
             onTap: () => _setActiveIndex(2),
             selectedColor: AppTheme.colors.primary,
@@ -92,14 +90,14 @@ class ScaffoldWithNavBar extends StatelessWidget {
           isDesktop
               ? ListTile(
                   leading: const Icon(UniconsLine.info_circle),
-                  title: Text("О приложении", style: AppTextStyle.tab),
+                  title: Text("About", style: AppTextStyle.tab),
                   selected: navigationShell.currentIndex == 3,
                   onTap: () => _setActiveIndex(3),
                   selectedColor: AppTheme.colors.primary,
                 )
               : ListTile(
                   leading: const Icon(Icons.person),
-                  title: Text("Профиль", style: AppTextStyle.tab),
+                  title: Text("Profile", style: AppTextStyle.tab),
                   selected: navigationShell.currentIndex == 3,
                   onTap: () => _setActiveIndex(3),
                   selectedColor: AppTheme.colors.primary,
@@ -111,9 +109,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
 }
 
 class AppBottomNavigationBar extends StatelessWidget {
-  const AppBottomNavigationBar(
-      {Key? key, required this.index, required this.onClick})
-      : super(key: key);
+  const AppBottomNavigationBar({Key? key, required this.index, required this.onClick}) : super(key: key);
 
   final Function(int) onClick;
   final int index;
@@ -132,28 +128,28 @@ class AppBottomNavigationBar extends StatelessWidget {
         items: [
           SalomonBottomBarItem(
             icon: const Icon(Icons.library_books_rounded),
-            title: const Text("Новости"),
+            title: const Text("news"),
             selectedColor: AppTheme.colors.primary,
           ),
           SalomonBottomBarItem(
             icon: const Icon(Icons.calendar_today_rounded),
-            title: const Text("Расписание"),
+            title: const Text("Schedule"),
             selectedColor: AppTheme.colors.primary,
           ),
           SalomonBottomBarItem(
             icon: const Icon(Icons.widgets_rounded),
-            title: const Text("Сервисы"),
+            title: const Text("Services"),
             selectedColor: AppTheme.colors.primary,
           ),
           ScaffoldWithNavBar.isDesktop
               ? SalomonBottomBarItem(
                   icon: const Icon(UniconsLine.info_circle),
-                  title: const Text("О приложении"),
+                  title: const Text("About"),
                   selectedColor: AppTheme.colors.primary,
                 )
               : SalomonBottomBarItem(
                   icon: const Icon(Icons.person),
-                  title: const Text("Профиль"),
+                  title: const Text("Profile"),
                   selectedColor: AppTheme.colors.primary,
                 ),
         ],

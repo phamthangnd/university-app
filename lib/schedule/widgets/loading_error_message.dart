@@ -18,8 +18,7 @@ class LoadingErrorMessage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment:
-              isTable ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+          crossAxisAlignment: isTable ? CrossAxisAlignment.center : CrossAxisAlignment.start,
           children: [
             Center(
               child: Image.asset(
@@ -31,14 +30,14 @@ class LoadingErrorMessage extends StatelessWidget {
               height: 8,
             ),
             Text(
-              "Произошла ошибка",
+              "An error has occurred",
               style: AppTextStyle.h5,
             ),
             const SizedBox(
               height: 8,
             ),
             Text(
-              "Во время получения расписания произошла ошибка. Попробуйте повторить попытку.",
+              "An error occurred while retrieving the schedule. Please try again.",
               style: AppTextStyle.captionL.copyWith(
                 color: AppTheme.colors.deactive,
               ),
@@ -49,7 +48,7 @@ class LoadingErrorMessage extends StatelessWidget {
             SizedBox(
               width: isTable ? 420 : double.infinity,
               child: ColorfulButton(
-                text: "Повторить",
+                text: "try again",
                 onClick: onTap,
                 backgroundColor: AppTheme.colors.primary,
               ),
